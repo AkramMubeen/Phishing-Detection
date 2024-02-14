@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #555;
+            margin: 0;
+            padding: 0;
+        }
+
+        .login {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mb-3 {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="login">
+       <h1>Phishing URL Detection</h1>
+   
+       <form action="{{ url_for('predict_datapoint')}}" method="post">
+        <h1>
+            <legend>Phisher</legend>
+        </h1>
+
+        <div class="mb-3">
+            <label class="form-label">Qty Dot Domain</label>
+            <input class="form-control" type="number" name="qty_dot_domain" placeholder="Enter quantity of dot in domain" step="0.01" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Qty Slash Directory</label>
+            <input class="form-control" type="number" name="qty_slash_directory" placeholder="Enter quantity of slash in directory" step="0.01" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Qty Hyphen File</label>
+            <input class="form-control" type="number" name="qty_hyphen_file" placeholder="Enter quantity of hyphen in file" step="0.01" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Qty Percent File</label>
+            <input class="form-control" type="number" name="qty_percent_file" placeholder="Enter quantity of percent in file" step="0.01" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Qty Hyphen Params</label>
+            <input class="form-control" type="number" name="qty_hyphen_params" placeholder="Enter quantity of hyphen in params" step="0.01" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Qty Underline Params</label>
+            <input class="form-control" type="number" name="qty_underline_params" placeholder="Enter quantity of underline in params" step="0.01" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Qty Slash Params</label>
+            <input class="form-control" type="number" name="qty_slash_params" placeholder="Enter quantity of slash in params" step="0.01" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Qty Hashtag Params</label>
+            <input class="form-control" type="number" name="qty_hashtag_params" placeholder="Enter quantity of hashtag in params" step="0.01" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Email in URL</label>
+            <select class="form-control" name="email_in_url" required>
+                <option class="placeholder" selected disabled value="">Select option</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Domain in IP</label>
+            <select class="form-control" name="domain_in_ip" required>
+                <option class="placeholder" selected disabled value="">Select option</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Server Client Domain</label>
+            <select class="form-control" name="server_client_domain" required>
+                <option class="placeholder" selected disabled value="">Select option</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">TLD Present Params</label>
+            <select class="form-control" name="tld_present_params" required>
+                <option class="placeholder" selected disabled value="">Select option</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Domain SPF</label>
+            <select class="form-control" name="domain_spf" required>
+                <option class="placeholder" selected disabled value="">Select option</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">TLS SSL Certificate</label>
+            <select class="form-control" name="tls_ssl_certificate" required>
+                <option class="placeholder" selected disabled value="">Select option</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">URL Google Index</label>
+            <select class="form-control" name="url_google_index" required>
+                <option class="placeholder" selected disabled value="">Select option</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Domain Google Index</label>
+            <select class="form-control" name="domain_google_index" required>
+                <option class="placeholder" selected disabled value="">Select option</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">URL Shortened</label>
+            <select class="form-control" name="url_shortened" required>
+                <option class="placeholder" selected disabled value="">Select option</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Time Response</label>
+            <input class="form-control" type="number" name="time_response" placeholder="Enter time response" step="0.01" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Time Domain Activation</label>
+            <input class="form-control" type="number" name="time_domain_activation" placeholder="Enter time domain activation" step="0.01" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Time Domain Expiration</label>
+            <input class="form-control" type="number" name="time_domain_expiration" placeholder="Enter time domain expiration" step="0.01" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Length URL</label>
+            <input class="form-control" type="number" name="length_url" placeholder="Enter length of URL" step="0.01" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Domain Length</label>
+            <input class="form-control" type="number" name="domain_length" placeholder="Enter domain length" step="0.01" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Directory Length</label>
+            <input class="form-control" type="number" name="directory_length" placeholder="Enter directory length" step="0.01" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">File Length</label>
+            <input class="form-control" type="number" name="file_length" placeholder="Enter file length" step="0.01" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Params Length</label>
+            <input class="form-control" type="number" name="params_length" placeholder="Enter params length" step="0.01" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">TTL Hostname</label>
+            <input class="form-control" type="number" name="ttl_hostname" placeholder="Enter TTL hostname" step="0.01" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">ASN IP</label>
+            <input class="form-control" type="number" name="asn_ip" placeholder="Enter ASN IP" step="0.01" required />
+        </div>
+
+        <div class="mb-3">
+            <input class="btn btn-primary" type="submit" value="Predict" required />
+        </div>
+    </form>
+
+    <h2>
+       Results are {{results}}
+    </h2>
+   </body>
+</html>
