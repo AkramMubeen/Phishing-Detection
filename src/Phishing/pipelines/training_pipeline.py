@@ -7,7 +7,7 @@ from src.Phishing.exception import CustomException
 from src.Phishing.components.data_ingestion import DataIngestion
 from src.Phishing.components.data_transformation import DataTransformation
 from src.Phishing.components.model_trainer import ModelTrainer
-#from src.Phishing.components.model_evaluation import ModelEvaluation
+from src.Phishing.components.model_evaluation import ModelEvaluation
 
 # Define the TrainingPipeline class
 class TrainingPipeline:
@@ -40,14 +40,14 @@ class TrainingPipeline:
         except Exception as e:
             raise CustomException(e, sys)
 
-    # def start_model_evaluation(self, train_arr, test_arr):
-    #     try:
-    #         # Initialize ModelEvaluation object
-    #         model_evaluation = ModelEvaluation()
-    #         # Start model evaluation
-    #         model_evaluation.initiate_model_evaluation(train_arr, test_arr)
-    #     except Exception as e:
-    #         raise CustomException(e, sys)
+    def start_model_evaluation(self, train_arr, test_arr):
+        try:
+            # Initialize ModelEvaluation object
+            model_evaluation = ModelEvaluation()
+            # Start model evaluation
+            model_evaluation.initiate_model_evaluation(train_arr, test_arr)
+        except Exception as e:
+            raise CustomException(e, sys)
 
     def start_training_pipeline(self):
         try:
@@ -58,7 +58,7 @@ class TrainingPipeline:
             # Start model training
             self.start_model_training(train_arr, test_arr)
             # Start model evaluation
-            #self.start_model_evaluation(train_arr, test_arr)
+            self.start_model_evaluation(train_arr, test_arr)
         except Exception as e:
             raise CustomException(e, sys)
 

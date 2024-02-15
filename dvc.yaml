@@ -1,0 +1,17 @@
+stages:
+  training:
+    cmd: python src/Phishing/pipelines/training_pipeline.py
+    deps:
+      - src/Phishing/pipelines/training_pipeline.py
+      - src/Phishing/components/data_ingestion.py
+      - src/Phishing/components/data_transformation.py
+      - src/Phishing/components/model_trainer.py
+      - src/Phishing/components/model_evaluation.py
+
+    outs:
+      - artifacts/raw.csv
+      - artifacts/test.csv
+      - artifacts/train.csv
+      - artifacts/preprocessor.pkl
+      - artifacts/model.pkl
+

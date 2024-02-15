@@ -1,0 +1,46 @@
+schema: '2.0'
+stages:
+  training:
+    cmd: python src/Phishing/pipelines/training_pipeline.py
+    deps:
+    - path: src/Phishing/components/data_ingestion.py
+      hash: md5
+      md5: 377820e60fbf507f4d68b5b1ad88a43c
+      size: 6989
+    - path: src/Phishing/components/data_transformation.py
+      hash: md5
+      md5: 23121e2f024bfbb0b634eed217c52292
+      size: 6539
+    - path: src/Phishing/components/model_evaluation.py
+      hash: md5
+      md5: 03f9366d4260c720a598e932bdc3d9a5
+      size: 2297
+    - path: src/Phishing/components/model_trainer.py
+      hash: md5
+      md5: ef6df70709f1478bf19fdf98480676b6
+      size: 3769
+    - path: src/Phishing/pipelines/training_pipeline.py
+      hash: md5
+      md5: 4cb8f484c558b823cda2e4d79bdb4003
+      size: 2985
+    outs:
+    - path: artifacts/model.pkl
+      hash: md5
+      md5: 925907f3780ec03f9985a1937bda6346
+      size: 575461
+    - path: artifacts/preprocessor.pkl
+      hash: md5
+      md5: 8dd6b2abf5b1bef31bb3b06a39a6bee4
+      size: 3816
+    - path: artifacts/raw.csv
+      hash: md5
+      md5: 69f0015ad1a1deeaf5daab33f4d66b96
+      size: 25564580
+    - path: artifacts/test.csv
+      hash: md5
+      md5: 2366410c2d5c0da81c0556ba47276ab3
+      size: 2256469
+    - path: artifacts/train.csv
+      hash: md5
+      md5: 4560c43eaf206c09aec8345a1646b1fb
+      size: 5262818
