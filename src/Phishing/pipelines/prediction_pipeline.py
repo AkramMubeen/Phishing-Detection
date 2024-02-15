@@ -21,10 +21,6 @@ class PredictPipeline:
             model = load_object(model_path)
             
             # Specify columns used during training
-            numerical_cols = [
-                'time_response', 'time_domain_activation', 'time_domain_expiration',
-                'length_url', 'domain_length', 'directory_length', 'file_length', 'params_length'
-            ]
             categorical_cols = [
                 'qty_dot_domain', 'qty_slash_directory', 'qty_hyphen_file',
                 'qty_percent_file', 'qty_hyphen_params', 'qty_underline_params',
@@ -33,19 +29,25 @@ class PredictPipeline:
                 'domain_spf', 'tls_ssl_certificate', 'url_google_index',
                 'domain_google_index', 'url_shortened'
             ]
+            numerical_cols = [
+                'time_response', 'time_domain_activation', 'time_domain_expiration',
+                'length_url', 'domain_length', 'directory_length', 'file_length', 'params_length'
+            ]
             
+            # Apply preprocessing to numerical and categorical features
+            #all_data = features[numerical_cols+categorical_cols]
+            for col in numerical_cols:
+                features[col], _ = yeojohnson(features[col])
+            logging.info("Applied Yeo-Johnson transformation")
+            logging.info(features.columns)
+            pro_all_data = preprocessor.transform(features)
+
             # Apply target encoding to high cardinality features
             high_ct = ['ttl_hostname', 'asn_ip']
             encoded_data = targetencoder.transform(features[high_ct])
-
-            # Apply preprocessing to numerical and categorical features
-            numerical_data = features[numerical_cols]
-            categorical_data = features[categorical_cols]
-            scaled_numerical_data = preprocessor.transform(numerical_data)
-            encoded_categorical_data = preprocessor.transform(categorical_data)
             
             # Combine transformed numerical and categorical features
-            scaled_data = np.hstack((scaled_numerical_data, encoded_categorical_data, encoded_data))
+            scaled_data = np.hstack((pro_all_data,encoded_data))
             
             # Make predictions using the model
             pred = model.predict(scaled_data)

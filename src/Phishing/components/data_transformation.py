@@ -24,6 +24,15 @@ class DataTransformationConfig:
     preprocessor_obj_file_path = os.path.join('artifacts', 'preprocessor.pkl')
     target_enc_obj_file_path = os.path.join('artifacts', 'target_enc.pkl')
 
+def print_unique_values_in_all_columns(df):
+    for column in df.columns:
+        unique_values = df[column].unique()[:20]  # Limit to 20 values
+        print(f"{column}: {list(unique_values)}")
+
+def print_unique_values(column_name, df):
+    unique_values = df[column_name].unique()[:20]  # Limit to 20 values
+    print(f"{column_name}: {list(unique_values)}")
+
 
 class DataTransformation:
     def __init__(self):
@@ -50,7 +59,8 @@ class DataTransformation:
             logging.info('Pipeline Initiated')
             
             num_pipeline = Pipeline(steps=[("scaler", StandardScaler())])
-            cat_pipeline = Pipeline(steps=[("onehotencoder", OneHotEncoder())])
+            cat_pipeline = Pipeline(steps=[("onehotencoder", OneHotEncoder(handle_unknown='ignore'))])
+            
         
             preprocessor = ColumnTransformer([
                 ('num_pipeline', num_pipeline, numerical_cols),
@@ -70,6 +80,8 @@ class DataTransformation:
             logging.info("Read train and test data complete")
             logging.info(f'Train Dataframe Head:\n{train_df.head().to_string()}')
             logging.info(f'Test Dataframe Head:\n{test_df.head().to_string()}')
+
+            logging.info(print_unique_values_in_all_columns(train_df))
             
             preprocessing_obj = self.get_data_transformation()
             high_ct = ['ttl_hostname', 'asn_ip']
