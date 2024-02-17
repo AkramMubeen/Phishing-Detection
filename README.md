@@ -3,7 +3,7 @@
 
 This project showcases an end-to-end machine learning solution developed using AWS infrastructure, leveraging DynamoDB and S3 buckets for efficient data storage and handling. The primary goal was to build a highly accurate predictive model using either CatBoost or XGBoost algorithms on a dataset featuring over 100 features. Additionally, the project involved thorough correlation analysis and feature importance assessment to ensure the robustness of the model.
 
-Here is the project design:
+Here is the project design:<br>
 ![Project Design](https://i.ibb.co/pJ2XMkr/ml-7.jpg)
 
 
